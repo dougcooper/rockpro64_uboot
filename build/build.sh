@@ -16,5 +16,5 @@ make -j$(nproc) BL31="$BL31"
 ./tools/mkimage -n rk3399 -T rkspi -d tpl/u-boot-tpl.bin:spl/u-boot-spl.bin idbloader-spi.img
 
 mkdir -p /output
-cp $BL31 /output
+cp u-boot.itb /output
 cp idbloader-spi.img /output
