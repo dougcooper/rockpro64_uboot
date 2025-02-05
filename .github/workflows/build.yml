@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04-arm
 
     steps:
       - name: Checkout repository
@@ -17,7 +17,7 @@ jobs:
 
       - name: Build container image
         run: |
-          docker build -t my-container-image .
+          docker build -t my-container-image -f Dockerfile.arm64 .
 
       - name: Run container and build artifact
         run: |
