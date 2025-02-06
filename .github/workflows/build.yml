@@ -1,11 +1,11 @@
 name: Build Artifact
 
 on:
-    push:
-      branches:
-        - main
-    pull_request:
-    workflow_dispatch:
+    workflow_call:  # Allows this workflow to be called from another workflow
+      outputs:
+        artifact_name:
+          description: "Name of the built artifact"
+          value: "my-artifact"
 
 jobs:
   build:

@@ -1,4 +1,4 @@
-name: Release Artifact
+name: Build and Release Artifact
 
 on:
   push:
@@ -6,6 +6,9 @@ on:
       - "v*"  # Runs only when pushing a version tag like "v1.0.0"
 
 jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    
   release:
     runs-on: ubuntu-latest
     permissions:
