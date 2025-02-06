@@ -1,4 +1,4 @@
-name: Build and Release Artifact
+name: Build Artifact
 
 on:
     push:
@@ -19,7 +19,7 @@ jobs:
         run: |
           docker build -t my-container-image -f Dockerfile.arm64 .
 
-      - name: Run container and build artifact
+      - name: Run container and copy artifact
         run: |
           docker run --rm -v $PWD/output:/output my-container-image ./build-script.sh
 
@@ -28,37 +28,3 @@ jobs:
         with:
           name: my-artifact
           path: output/*  # Adjust to match your artifact output location
-
-#   release:
-#     needs: build
-#     runs-on: ubuntu-latest
-#     permissions:
-#       contents: write
-
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
-
-#       - name: Download built artifact
-#         uses: actions/download-artifact@v4
-#         with:
-#           name: my-artifact
-#           path: release-assets
-
-#       - name: Create GitHub Release
-#         id: create_release
-#         uses: ncipollo/release-action@v1
-#         with:
-#           tag: v1.0.${{ github.run_number }}
-#           name: "Release v1.0.${{ github.run_number }}"
-#           body: "Automated release of built artifact."
-#           draft: false
-#           prerelease: false
-#           token: ${{ secrets.GITHUB_TOKEN }}
-
-#       - name: Upload Artifact to Release
-#         uses: softprops/action-gh-release@v2
-#         with:
-#           tag_name: v1.0.${{ github.run_number }}
-#           files: release-assets/*
-#           token: ${{ secrets.GITHUB_TOKEN }}
