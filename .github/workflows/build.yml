@@ -17,14 +17,14 @@ jobs:
 
       - name: Build container image
         run: |
-          docker build -t my-container-image -f Dockerfile.arm64 .
+          docker build -t rockpro64_uboot -f Dockerfile.arm64 .
 
       - name: Run container and copy artifact
         run: |
-          docker run --rm -v $PWD/output:/output my-container-image ./build-script.sh
+          docker run --rm -v $PWD:/src rockpro64_uboot
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: my-artifact
-          path: output/*  # Adjust to match your artifact output location
+          path: release/*  # Adjust to match your artifact output location

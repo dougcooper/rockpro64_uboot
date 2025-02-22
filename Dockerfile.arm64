@@ -1,7 +1,12 @@
 FROM debian
 
-RUN apt update && apt install -y bc python3 libssl-dev make gcc gcc-arm-none-eabi git device-tree-compiler swig bison flex
+RUN apt update && apt install -y bc python3 libssl-dev make gcc gcc-arm-none-eabi git device-tree-compiler swig bison flex libncurses-dev
 
+RUN git clone https://github.com/ARM-software/arm-trusted-firmware.git && \
+    git clone --depth 1 --branch v2022.07 https://source.denx.de/u-boot/u-boot.git && \
+    cd /arm-trusted-firmware && git checkout v2.12.0 && rm -f '*.bin'
+
+COPY build/.config /u-boot/
 COPY build/build.sh /
 
 ENTRYPOINT ["./build.sh"]
